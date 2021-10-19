@@ -16,7 +16,6 @@ phones = product_list.find_all('li', {"class": "prod_item"})
 for phone in phones:
   try:
     phone_name = phone.find('p',{"class": "prod_name"}).get_text()
-    print(phone_name)
   except:
     continue;
   
