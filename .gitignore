@@ -30,3 +30,7 @@ logs/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+__pycache__
+poetry.lock
+pyproject.toml
