@@ -31,6 +31,6 @@ logs/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-__pycache__
+__pycache__/
 poetry.lock
 pyproject.toml
