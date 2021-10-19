@@ -6,7 +6,8 @@ driver = Chrome('/Users/chromedriver')
 
 url = "http://search.danawa.com/dsearch.php?query=%ED%95%B8%EB%93%9C%ED%8F%B0&originalQuery=%ED%95%B8%EB%93%9C%ED%8F%B0&previousKeyword=%ED%95%B8%EB%93%9C%ED%8F%B0&volumeType=allvs&"
 
-def extract_phone(html):
+def extract_phone(result):
+    html = result.find('div', {"class": "prod_info"})
     try:
         name = html.find('p',{"class": "prod_name"}).get_text().strip()
         display_size = html.find('a',{"onclick": "$.termDicViewLink(3319,'view',this,0,224,48419); return false;"}).get_text()
@@ -19,7 +20,18 @@ def extract_phone(html):
         charge_speed = html.find('a',{"onclick": "$.termDicViewLink(210751,'view',this,0,224,48419); return false;"}).get_text().strip("최대")
         weight = html.find('a',{"onclick": "$.termDicViewLink(11157,'view',this,0,224,48419); return false;"}).get_text().strip("무게:")
         thickness = html.find('a',{"onclick": "$.termDicViewLink(11201,'view',this,0,224,48419); return false;"}).get_text().strip("두께:")
+        prices = result.find_all('a',{"class": "click_log_product_standard_price_"})
+       
+        #Prvents 가격비교예정
+        for price in prices:
+            if (price.get_text() == "가격비교예정"):
+                continue
+            else:
+                final_price = price.find('strong').get_text()
+            
+
         display_size = display_size.split('(', 1)[0] #gets rid of inch
+        
         return{
             'name': name,
             'display_size': display_size,
@@ -31,7 +43,8 @@ def extract_phone(html):
             'battery': battery,
             'charge_speed': charge_speed,
             'weight': weight,
-            'thickness': thickness
+            'thickness': thickness,
+            'price': final_price
         }
     except:
         return
@@ -49,10 +62,10 @@ def extract_phones(pages):
 
         #Gets phone name
         for result in results:
-            html = result.find('div', {"class": "prod_info"})
-            phone = extract_phone(html)
+            phone = extract_phone(result)
             phones.append(phone)
-    #print(phones)
+        driver.refresh()
+    print(phones)
     return phones
 
     
