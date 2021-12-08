@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Job Search</title>
+    <title>Search</title>
     <style>
       section{
         display:flex;
         flex-direction: column;
         gap:20px;
         grid-template-columns:repeat(4, 1fr);
+        margin-left: 1rem;
+      }
+      .right{
+        float:right;
+        margin-right: 1rem;
+      }
+      .section{
+        cursor: pointer;
+        border-bottom:solid grey;
       }
     </style>
   </head>
@@ -16,10 +25,25 @@
     <h3>Found reusults for: {{term}} </h3>
     <section>
       {% for result in results %}
-      <div style=" cursor: pointer;" onclick="location.href='/compare';">
-        <span>{{result[1]['기종']}}</span>
-        <span>{{result[1]['디스플레이 크기']}}</span>
-        <span>{{result[1]['AP']}}</span>
+      <div class="section" onclick="location.href='/compare/{{result[0]}}';">
+        <h4>
+          <p style="text-align:left;">
+            {{result[1]['기종']}}
+            <span class="right">
+              {{result[1]['가격']}}원
+            </span>
+          </p>
+        </h4>
+        <p>디스플레이 크기: {{result[1]['디스플레이 크기']}}</p>
+        <p>AP: {{result[1]['AP']}}</p>
+        <p>램: {{result[1]['램']}}</p>
+        <p>용량: {{result[1]['용량']}}</p>
+        <p>후면 카메라: {{result[1]['후면 카메라']}}</p>
+        <p>전면 카메라: {{result[1]['전면 카메라']}}</p>
+        <p>배터리: {{result[1]['배터리']}}</p>
+        <p>충전 속도: {{result[1]['충전 속도']}}</p>
+        <p>무게: {{result[1]['무게']}}</p>
+        <p>두께: {{result[1]['두께']}}</p>
       </div>
       {% endfor %}
     <section>
