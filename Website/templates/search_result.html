@@ -4,7 +4,8 @@
     <title>Job Search</title>
     <style>
       section{
-        display:grid;
+        display:flex;
+        flex-direction: column;
         gap:20px;
         grid-template-columns:repeat(4, 1fr);
       }
@@ -13,17 +14,13 @@
   
     <h1>Search Results</h1>
     <h3>Found reusults for: {{term}} </h3>
-    <a href="/export?word={{searchingBy}}">Export to CSV</a>
     <section>
-      <h4>Title</h4>
-      <h4>Company</h4>
-      <h4>Location</h4>
-      <h4>Link</h4>
-      {% for potato in jobs %}
-        <span>{{potato.title}}</span>
-        <span>{{potato.company}}</span>
-        <span>{{potato.location}}</span>
-        <a href="{{potato.link}}" target="_blank">Apply</a>
+      {% for result in results %}
+      <div style=" cursor: pointer;" onclick="location.href='/compare';">
+        <span>{{result[1]['기종']}}</span>
+        <span>{{result[1]['디스플레이 크기']}}</span>
+        <span>{{result[1]['AP']}}</span>
+      </div>
       {% endfor %}
     <section>
   <body>
