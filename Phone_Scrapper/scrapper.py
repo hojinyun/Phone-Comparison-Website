@@ -24,7 +24,7 @@ def extract_phone(result):
        
         #Prvents 가격비교예정
         for price in prices:
-            if (price.get_text() == "가격비교예정"):
+            if (price.get_text() == "가격비교예정" || price.get_text() == "일시품절"):
                 continue
             else:
                 final_price = price.find('strong').get_text()
